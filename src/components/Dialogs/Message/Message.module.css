@@ -1,0 +1,52 @@
+.item {
+    background: #444;
+    padding: 8px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    position: relative;
+    max-width: 90%;
+}
+
+.send {
+    align-self: flex-end;
+}
+
+.time {
+    color: yellow;
+    font-weight: 400;
+    position: absolute;
+    font-size: 14px;
+    bottom: -18px;
+}
+
+.get .time {
+    left: 5px;
+}
+
+.send .time {
+    right: 5px
+}
+
+.send::before {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border: 10px solid transparent;
+    border-top: 10px solid #444;
+    box-sizing: border-box;
+    top: 0px;
+    right: -10px;
+}
+
+.get::before {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border: 10px solid transparent;
+    border-top: 10px solid #444;
+    box-sizing: border-box;
+    top: 0px;
+    left: -10px;
+}

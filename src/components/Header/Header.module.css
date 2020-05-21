@@ -1,0 +1,20 @@
+.header {
+    grid-area: h;
+    background: #222;
+    border: 3px solid chartreuse;
+    border-radius: 10px;
+    font-family: 'Bungee', cursive;
+}
+  
+.logo {
+    color: transparent;
+    font-size: 62px;
+    -webkit-text-stroke-width: 3px;
+    -webkit-text-stroke-color: chartreuse;
+    padding-left: 20px;
+}
+
+.description {
+    color: chartreuse;
+    padding-left: 60px;
+}

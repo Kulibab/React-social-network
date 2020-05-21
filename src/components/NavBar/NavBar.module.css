@@ -1,0 +1,40 @@
+.nav {
+    grid-area: n;
+    background: #222;
+    border: 3px solid chartreuse;
+    padding: 20px;
+    border-radius: 10px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.item {
+    height: 40px;
+
+}
+
+.item a:hover {
+    font-weight: 900;
+    color: yellow;
+    background: #444;
+}
+
+.item a{
+    box-sizing: border-box;
+    display: inline-block;
+    color: chartreuse;
+    text-decoration: none;
+    height: 100%;
+    width: 100%;
+    padding: 8px;
+    border-radius: 10px;
+}
+
+.item .active{
+    color: yellow;
+    font-weight: 900;
+}
+
+.settings {
+    margin-top: 20px;
+}

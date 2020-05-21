@@ -1,0 +1,35 @@
+.item {
+    margin: 10px 0;
+    color: chartreuse;
+    border: 2px solid yellow;
+    border-radius:  15px;
+}
+
+.postContent {
+    display: flex;
+    font-size: 18px;
+}
+
+.postText {
+    padding-top: 10px;
+}
+
+.item img {
+    width: 70px;
+    height: 70px;
+    border: 2px solid chartreuse;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+.likes {
+    color: chartreuse;
+    font-weight: 600;
+    padding: 10px;
+}
+
+.likes i {
+    letter-spacing: 0.4em;
+    color:yellow;
+    font-size: 18px;
+}

@@ -1,0 +1,23 @@
+body {
+  background: #444;
+}
+
+.app-wrapper {
+  display: grid;
+  grid-template-rows: 80px 1fr;
+  grid-template-columns: 2fr 10fr;
+  grid-template-areas: 
+  'h h'
+  'n c';
+  grid-gap: 10px;
+  width: 1200px;
+  margin: 10px auto;
+}
+
+.app-wrapper-content {
+  grid-area: c;
+  background: #222;
+  border: 3px solid chartreuse;
+  color: chartreuse;
+  border-radius: 10px;
+}

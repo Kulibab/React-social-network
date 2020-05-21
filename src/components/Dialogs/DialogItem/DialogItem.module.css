@@ -1,0 +1,29 @@
+.dialog a {
+    display: flex;
+    text-decoration: none;
+    color: chartreuse;
+}
+
+.dialog a p {
+    align-self: center;
+    padding-left: 5px;
+}
+
+.dialog a{
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.dialog a:hover {
+    font-weight: 900;
+    color: yellow;
+    background: #444;
+}
+
+.avatar {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border: 2px solid yellow;
+}

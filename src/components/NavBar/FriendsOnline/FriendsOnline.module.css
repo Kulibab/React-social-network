@@ -1,0 +1,13 @@
+.friendOnline {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.title {
+    color: yellow;
+    padding-top: 50px;
+    font-weight: 900;
+    font-size: 30px;
+    padding-bottom: 20px;
+}
