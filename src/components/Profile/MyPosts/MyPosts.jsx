@@ -3,32 +3,40 @@ import classes from './MyPosts.module.css';
 import Post from './Post/Post';
 
 const MyPosts = (props) => {
-    let postElements = props.state.postData.map(obj => <Post id={obj.id} message={obj.message} likes={obj.likesCount}/>);
+    let postElements = props.profilePage.postData.map(obj => <Post id={obj.id} message={obj.message} likes={obj.likesCount} key={obj.id}/>);
     
     let newPostText = React.createRef();
 
-    let updatePostMessage = () => {
-        props.updatePostMessage(newPostText.current.value)
-    }
-    
-    let addPost = () => {
+    let onAddPost = (ev) => {
+        ev.preventDefault();
         props.addPost();
-        newPostText.current.value = '';
+    }
+
+    let onPostChange = () => {
+        let text = newPostText.current.value;
+        props.updateNewPostText(text);
     }
 
     return (
         <div className={classes.posts}>
-            <h2>
+            <h2 className={classes.title}>
                 My posts
             </h2>
-            <div className={classes.newPost}>
-                <textarea onInput={updatePostMessage} name="" className={classes.newPostText} ref={newPostText} cols="30" rows="10">
-
+            <form className={classes.newPost}  onSubmit={onAddPost}>
+                <textarea onChange={onPostChange} name="" className={classes.newPostText}
+                 ref={newPostText} cols="30" rows="10" value={props.profilePage.postMessage}
+                 onKeyPress={(ev) => {
+                    if (!ev.shiftKey && ev.charCode===13) {
+                        onAddPost(ev)
+                        }
+                    }
+                }
+                 required>
                 </textarea>
-                <button onClick={addPost}>
+                <button type='submit' className={classes.btn}>
                     Add post
                 </button>
-            </div>
+            </form>
             <div className={classes.postList}>
                 {postElements}
             </div>

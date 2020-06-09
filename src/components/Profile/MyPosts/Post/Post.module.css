@@ -12,6 +12,10 @@
 
 .postText {
     padding-top: 10px;
+    margin: 0;
+    font-family: inherit;
+    white-space: pre-wrap;
+    word-break: break-all;
 }
 
 .item img {

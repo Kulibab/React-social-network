@@ -20,4 +20,5 @@ body {
   border: 3px solid chartreuse;
   color: chartreuse;
   border-radius: 10px;
+  position: relative;
 }

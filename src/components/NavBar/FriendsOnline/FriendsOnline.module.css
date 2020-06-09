@@ -5,9 +5,13 @@
 }
 
 .title {
-    color: yellow;
-    padding-top: 50px;
+    padding-top: 20px;
     font-weight: 900;
     font-size: 30px;
     padding-bottom: 20px;
+    font-family: 'Bungee', cursive;
+    color: transparent;
+    letter-spacing: 2px;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: yellow;
 }

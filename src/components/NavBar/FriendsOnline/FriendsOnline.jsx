@@ -8,7 +8,7 @@ const FriendsOnline = (props) => {
             <h2 className={classes.title}>
                 Friends online
             </h2>
-            {props.state.map((obj) => <Friend logoSrc={obj.logoSrc} name={obj.name} />)}
+            {props.friendsOnline.map((obj) => <Friend logoSrc={obj.logoSrc} name={obj.name} key={obj.id}/>)}
         </div>
     )
 }

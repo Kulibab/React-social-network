@@ -1,0 +1,77 @@
+.ava {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 15px;
+    border: 3px solid chartreuse;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+
+
+.user {
+    border: 2px solid yellow;
+    border-radius: 15px;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    margin: 30px auto;
+    font-size: 20px;
+}
+
+.follow {
+    flex: 1;
+}
+
+.username {
+    flex: 3;
+}
+
+.location {
+    flex: 1.4;
+    font-weight: 600;
+}
+
+.btn {
+    background: #222;
+    border: 2px solid yellow;
+    color: chartreuse;
+    font-size: 18px;
+    padding: 10px;
+    width: 120px;
+    font-weight: 600;
+    border-radius: 10px;
+}
+
+.btn:focus {
+    outline: none;
+}
+
+.btn:hover {
+    font-weight: 900;
+    background: #333;
+    color: yellow;
+}
+
+.marginBottom {
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.pages {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.pages span {
+    font-size: 25px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.selectPage {
+    font-weight: 900;
+    color: yellow;
+}

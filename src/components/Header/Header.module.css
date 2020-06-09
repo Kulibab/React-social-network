@@ -4,6 +4,7 @@
     border: 3px solid chartreuse;
     border-radius: 10px;
     font-family: 'Bungee', cursive;
+    color: chartreuse;
 }
   
 .logo {
@@ -15,6 +16,14 @@
 }
 
 .description {
-    color: chartreuse;
     padding-left: 60px;
+}
+
+.loginBlock {
+    float: right;
+}
+
+.loginBlock a {
+    color: chartreuse;
+    text-decoration: none;
 }

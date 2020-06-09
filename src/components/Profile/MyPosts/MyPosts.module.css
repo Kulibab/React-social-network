@@ -2,11 +2,15 @@
     padding: 10px;
 }
 
-h2 {
+.title {
     font-family: 'Bungee', cursive;
     font-size: 50px;
     margin: 0;
     padding-bottom: 20px;
+    color: transparent;
+    letter-spacing: 2px;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: chartreuse;
 }
 
 .newPostText {
@@ -29,7 +33,7 @@ h2 {
     outline: none;
 }
 
-button {
+.btn {
     background: #222;
     border: 2px solid yellow;
     color: chartreuse;
@@ -41,11 +45,11 @@ button {
     border-radius: 10px;
 }
 
-button:focus {
+.btn:focus {
     outline: none;
 }
 
-button:hover {
+.btn:hover {
     font-weight: 900;
     background: #333;
     color: yellow;

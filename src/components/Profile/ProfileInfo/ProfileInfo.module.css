@@ -3,10 +3,17 @@
     height: 200px;
     border-radius: 20px;
     border: 3px solid yellow;
+    box-sizing: border-box;
 }
 
-.description {
+.profile {
     padding: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.profile p {
+    margin: 8px;
 }
 
 .top_img {
@@ -15,4 +22,26 @@
     object-fit: cover;
     border-bottom: 3px solid chartreuse;
     border-radius: 10px 10px 0 0;
+}
+
+.info {
+    font-size: 18px;
+    font-weight: 600;
+    width: 530px;
+}
+
+.name {
+    font-size: 24px;
+}
+
+.lookJob {
+    padding-top: 15px;
+}
+
+.about, .jobDescription {
+    color: yellow;
+}
+
+.links {
+    width: 200px;
 }
