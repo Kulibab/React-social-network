@@ -1,13 +1,14 @@
 import React from 'react';
 import classes from './ProfileInfo.module.css';
 import Preloader from '../../common/Preloader/Preloader';
+import ProfileStatus from './ProfileStatus';
 
 
 const ProfileInfo = (props) => {
     if(!props.profile) {
         return <Preloader />
     }
-    
+
     return (
         <div>
             <div>
@@ -19,6 +20,7 @@ const ProfileInfo = (props) => {
                     <p className={classes.name}>
                         {props.profile.fullName}
                     </p>
+                    <ProfileStatus status={props.status} updateUserStatus={props.updateUserStatus}/>
                     <p className={classes.about}>
                         {props.profile.aboutMe}
                     </p>
@@ -30,7 +32,6 @@ const ProfileInfo = (props) => {
                     </p>
                 </div>
                 <div className={classes.links}>
-
                 </div>
             </div>
         </div>

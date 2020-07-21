@@ -2,7 +2,6 @@ import React from 'react';
 import classes from './Users.module.css'
 import photo from '../../assets/images/photo.png';
 import { NavLink } from 'react-router-dom';
-import {usersAPI} from '../../api/api';
 
 let Users = (props) => {
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
@@ -33,23 +32,13 @@ let Users = (props) => {
                             </div>
                             <div>
                                 {user.followed 
-                                    ? <button className={classes.btn} onClick={() => {  
-                                        usersAPI.unfollow(user.id)
-                                            .then(data => {
-                                                if (data.resultCode === 0) {
-                                                    props.unfollow(user.id);
-                                                }
-                                            });                                    
+                                    ? <button disabled={props.isFollowingInProgress.some(id => id === user.id)} 
+                                    className={classes.btn} onClick={() => {
+                                        props.unfollow(user.id)                                 
                                     }}>Unfollow</button> 
-                                    : <button className={classes.btn} onClick={() => {
-                                        usersAPI.follow(user.id)
-                                            .then(data => {
-                                                if (data.resultCode === 0) {
-                                                    props.follow(user.id);
-                                                }
-                                            });  
-
-                                        
+                                    : <button disabled={props.isFollowingInProgress.some(id => id === user.id)} 
+                                    className={classes.btn} onClick={() => {
+                                        props.follow(user.id) 
                                     }}>Follow</button>
                                 }
                             </div>

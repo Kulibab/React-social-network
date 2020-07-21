@@ -12,8 +12,13 @@
     justify-content: space-between;
 }
 
-.profile p {
+.profile p, .status {
     margin: 8px;
+}
+
+.profile input {
+    margin: 0 8px;
+    font-size: 18px;
 }
 
 .top_img {
@@ -38,7 +43,7 @@
     padding-top: 15px;
 }
 
-.about, .jobDescription {
+.about, .jobDescription, .status {
     color: yellow;
 }
 

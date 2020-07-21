@@ -1,5 +1,4 @@
 const SEND_MESSAGE = 'SEND-MESSAGE';
-const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT';
 
 let initialState = {
     dialogData: [
@@ -11,28 +10,20 @@ let initialState = {
         {id: 1, text: 'Hello', dir: 'send', time: '21:35'},
         {id: 2, text: 'Bla bla blaBla bla blaBla bla blaBla bla blaBla bla blaBla bla blaBla bla blaBla bla blaBla bla bla', dir: 'get', time: '21:38'},
         {id: 3, text: 'Lalka', dir: 'send', time: '22:11'}
-    ],
-    newMessageText: ''
+    ]
 };
 
 const dialogsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case UPDATE_NEW_MESSAGE_TEXT:
-            return {
-                ...state,
-                newMessageText: action.newText
-            };
-
         case SEND_MESSAGE:
             let newMessage = {
                 id: state.messageData.length+1,
-                text: state.newMessageText,
+                text: action.newMessageBody,
                 dir: 'send',
                 time: new Date().toLocaleTimeString().slice(0, 5)
             }
             return {
                 ...state,
-                newMessageText: '',
                 messageData: [...state.messageData, newMessage]
             };
 
@@ -41,13 +32,9 @@ const dialogsReducer = (state = initialState, action) => {
     }
 }
 
-export const sendMessageActionCreator = () => ({
-    type: SEND_MESSAGE
-});
-
-export const updateMessageTextActionCreator = (text) => ({
-    type: UPDATE_NEW_MESSAGE_TEXT,
-    newText: text
+export const sendMessageActionCreator = (newMessageBody) => ({
+    type: SEND_MESSAGE,
+    newMessageBody
 });
 
 export default dialogsReducer;

@@ -18,21 +18,41 @@ export const usersAPI = {
             .then(response => response.data)
     },
     unfollow: (userId) => {
-        return axios.delete(`follow/${userId}`)
+        return instance.delete(`follow/${userId}`)
             .then(response => response.data)
     }
 }
 
-export const headerAPI = {
+export const authAPI = {
     getAuth: () => {
         return instance.get(`auth/me`)
             .then(response => response.data)
+    },
+    setLogin: (data) => {
+        return instance.post('auth/login', data)
+            .then(response =>response.data);
+    },
+    setLogout: () => {
+        return instance.delete('auth/login')
+            .then(response =>response.data);
+    },
+    getCaptcha: () => {
+        return instance.get('security/get-captcha-url')
+            .then(response =>response.data);
     }
 }
 
 export const profileAPI = {
     getProfile: (userId) => {
         return instance.get(`profile/${userId}`)
+            .then(response => response.data)
+    },
+    getStatus: (userId) => {
+        return instance.get(`profile/status/${userId}`)
+            .then(response => response.data)
+    },
+    updateStatus: (status) => {
+        return instance.put(`profile/status/`, {status})
             .then(response => response.data)
     }
 }

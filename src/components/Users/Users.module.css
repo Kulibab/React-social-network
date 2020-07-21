@@ -55,6 +55,12 @@
     color: yellow;
 }
 
+.btn:disabled {
+    opacity: 0.3;
+    background: #222;
+    color: yellow;
+}
+
 .marginBottom {
     margin-bottom: 10px;
     font-weight: 600;

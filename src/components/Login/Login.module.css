@@ -1,0 +1,39 @@
+.textInp {
+    width: 600px;
+    background: transparent;
+    border: 2px solid yellow;
+    font-size: 20px;
+    border-radius: 10px;
+    padding: 10px;
+    color: chartreuse;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    height: 45px;
+}
+
+.errorBox {
+    width: 600px;
+    background: transparent;
+    border: 2px solid red;
+    font-size: 20px;
+    border-radius: 10px;
+    padding: 10px;
+    color: red;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    height: 45px;
+    font-weight: 700;
+}
+
+.mb30 {
+    margin-bottom: 30px;
+}
+
+.textInp:focus {
+    outline: none;
+}
+
+.wrapper {
+    padding: 15px;
+    font-size: 20px;
+}
