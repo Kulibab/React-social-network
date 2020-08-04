@@ -1,59 +1,36 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import classes from './ProfileInfo.module.css';
 
-class ProfileStatus extends React.Component {
+function ProfileStatus (props) {
 
-    state = {
-        editMode: false,
-        status: this.props.status
-    }
+    let [status, changeStatus] = useState(props.status);
+    let [editMode, changeEditMode] = useState(false);
 
-    activateEditMode = () => {
-        this.setState({
-            editMode: true
-        });
-    }
-    
-    deactivateEditMode = () => {
-        this.setState({
-            editMode: false
-        });
-        this.props.updateUserStatus(this.state.status)
-    }
+    useEffect(() => {
+        changeStatus(props.status);
+    }, [props.status]);
 
-    onStatusChange = (e) => {
-        this.setState({
-            status: e.currentTarget.value
-        })
-    }
-
-    componentDidUpdate(prevProps) {
-        if(prevProps.status !== this.props.status) {
-            this.setState({
-                status: this.props.status
-            })
-        }
-    }
-
-    render() {
         return (
             <div>
-                {!this.state.editMode
+                {!editMode
                 ?   <div>
-                        <span onDoubleClick={this.activateEditMode} className={classes.status}>{this.props.status || '-----'}</span>
+                        <span onDoubleClick={() => changeEditMode(true)} className={classes.status}>{status || '-----'}</span>
                     </div>
                 :   <div>
-                        <input value={this.state.status} 
-                        onBlur={this.deactivateEditMode}
-                        onChange={this.onStatusChange} 
-                        autoFocus={true}/>
+                        <input value={status}
+                            onBlur={() => {
+                                props.updateUserStatus(status)
+                                changeEditMode(false)
+                            }}
+                            onChange={(e) => {
+                                changeStatus(e.currentTarget.value);
+                            }}
+                            autoFocus={true} />
                     </div>
                 }
-                
             </div>
     
         )
-    }
 }
 
 export default ProfileStatus;

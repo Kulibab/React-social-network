@@ -2,6 +2,7 @@ import React from 'react';
 import classes from './ProfileInfo.module.css';
 import Preloader from '../../common/Preloader/Preloader';
 import ProfileStatus from './ProfileStatus';
+import photo from '../../../assets/images/photo.png';
 
 
 const ProfileInfo = (props) => {
@@ -15,7 +16,7 @@ const ProfileInfo = (props) => {
                 <img className={classes.top_img} src='https://www.scadconnector.com/wp-content/uploads/2015/10/editRick-and-Morty-2.jpg' alt='profile-pic' />
             </div>
             <div className={classes.profile}>
-                <img className={classes.avatar} src={props.profile.photos.large} alt='avatar' />
+                <img className={classes.avatar} src={props.profile.photos.large || photo} alt='avatar' />
                 <div className={classes.info}>
                     <p className={classes.name}>
                         {props.profile.fullName}

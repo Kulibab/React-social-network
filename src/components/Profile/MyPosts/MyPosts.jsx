@@ -6,7 +6,8 @@ import {required, maxLengthCreator} from '../../../utils/validators/validators'
 import { Textarea } from '../../common/FormsControls/FormsControls';
 
 const MyPosts = (props) => {
-    let postElements = props.profilePage.postData.map(obj => <Post id={obj.id} message={obj.message} likes={obj.likesCount} key={obj.id}/>);
+    console.log('ernder');
+    let postElements = props.postData.map(obj => <Post id={obj.id} message={obj.message} likes={obj.likesCount} key={obj.id} />);
 
     let onAddPost = (values) => {
         props.addPost(values.addPostForm);
@@ -17,7 +18,7 @@ const MyPosts = (props) => {
             <h2 className={classes.title}>
                 My posts
             </h2>
-            <MyPostsFormRedux onSubmit={onAddPost}/>
+            <MyPostsFormRedux onSubmit={onAddPost} />
             <div className={classes.postList}>
                 {postElements}
             </div>
