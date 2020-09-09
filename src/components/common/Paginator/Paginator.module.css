@@ -1,0 +1,16 @@
+
+.pages {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.pages span {
+    font-size: 25px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.selectPage {
+    font-weight: 900;
+    color: yellow;
+}

@@ -1,8 +1,8 @@
 import {authAPI} from '../api/api';
 import { stopSubmit } from 'redux-form';
 
-const SET_USER_DATA = 'SET_USER_DATA';
-const SET_CAPTCHA = 'SET_CAPTCHA';
+const SET_USER_DATA = 'auth/SET_USER_DATA';
+const SET_CAPTCHA = 'auth/SET_CAPTCHA';
 
 let initialState = {
     userId: null,
@@ -51,51 +51,44 @@ const setCaptcha = (url) => {
 
 // thunx
 
-export const getAuthUserData = () => {
-    return (dispatch) => {
-        return authAPI.getAuth()
-        .then(data => {
-            if (data.resultCode === 0) {
-                let {id, email, login} = data.data;
-                dispatch(authUserDataSuccess(id, email, login, true));
-            }
-        });
+export const getAuthUserData = () => async (dispatch) => {
+        let response = await authAPI.getAuth();
+
+        if (response.resultCode === 0) {
+            let {id, email, login} = response.data;
+            dispatch(authUserDataSuccess(id, email, login, true));
+        }
     }
-}
 
-export const setUserLogin = (data) => {
+export const setUserLogin = (data) => async (dispatch) => {
 
-    return (dispatch) => {
-        authAPI.setLogin({
+        let response = await authAPI.setLogin({
             email: data.login,
             password: data.password,
             captcha: data.captcha
         })
-        .then(data => {
-            if(data.resultCode === 0) {
-                dispatch(getAuthUserData());
-            } else {
-                if(data.resultCode === 10) {
-                    authAPI.getCaptcha()
-                    .then(data => dispatch(setCaptcha(data.url)))
-                }
-                debugger;
-                let message = (data.messages[0]) ? data.messages[0] : 'Some error';
-                dispatch(stopSubmit('login', {_error: message}));
+
+        if (response.resultCode === 0) {
+            dispatch(getAuthUserData());
+        } else {
+            if (response.resultCode === 10) {
+                authAPI.getCaptcha()
+                    .then(response => dispatch(setCaptcha(response.url)))
             }
-        })
-    }
+            let message = (response.messages[0]) ? response.messages[0] : 'Some error';
+            dispatch(stopSubmit('login', {
+                _error: message
+            }));
+        }
 }
 
-export const setUserLogout = () => {
-    return (dispatch) => {
-        authAPI.setLogout()
-        .then(data => {
-            if(data.resultCode === 0) {
+export const setUserLogout = () => async (dispatch) => {
+
+        let response = await authAPI.setLogout()
+
+            if(response.resultCode === 0) {
                 dispatch(authUserDataSuccess(null, null, null, false));
             }
-        })
-    }
 }
 
 

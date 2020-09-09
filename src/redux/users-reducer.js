@@ -1,12 +1,13 @@
 import {usersAPI} from '../api/api';
+import { updateObjInArray } from '../utils/object-helpers';
 
-const FOLLOW = 'FOLLOW';
-const UNFOLLOW = 'UNFOLLOW';
-const SET_USERS = 'SET_USERS';
-const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
-const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT';
-const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
-const TOGGLE_IS_FOLLOWING_PROGRESS = 'TOGGLE_IS_FOLLOWING_PROGRESS';
+const FOLLOW = 'users/FOLLOW';
+const UNFOLLOW = 'users/UNFOLLOW';
+const SET_USERS = 'users/SET_USERS';
+const SET_CURRENT_PAGE = 'users/SET_CURRENT_PAGE';
+const SET_TOTAL_USERS_COUNT = 'users/SET_TOTAL_USERS_COUNT';
+const TOGGLE_IS_FETCHING = 'users/TOGGLE_IS_FETCHING';
+const TOGGLE_IS_FOLLOWING_PROGRESS = 'users/TOGGLE_IS_FOLLOWING_PROGRESS';
 
 let initialState = {
     usersData: [],
@@ -22,22 +23,12 @@ const usersReducer = (state = initialState, action) => {
         case FOLLOW:
             return {
                 ...state,
-                usersData: [...state.usersData].map(user => {
-                    if(user.id === action.userId) {
-                        return {...user, followed: true}
-                    }
-                    return user;
-                })
+                usersData: updateObjInArray(state.usersData, action.userId, 'id', {followed: true})
             }
         case UNFOLLOW:
             return {
                 ...state,
-                usersData: [...state.usersData].map(user => {
-                    if(user.id === action.userId) {
-                        return {...user, followed: false}
-                    }
-                    return user;
-                })
+                usersData: updateObjInArray(state.usersData, action.userId, 'id', {followed: false})
             }
         case SET_USERS:
             return {
@@ -122,45 +113,40 @@ export const toggleFollowingProgress = (isFollowingInProgress, userId) => {
     }
 }
 
+//functions
+
+const followUnfolowFlow = async (dispatch, userId, apiMethod, AC) => {
+    dispatch(toggleFollowingProgress(true, userId));
+    let data = await apiMethod(userId)
+            if (data.resultCode === 0) {
+                dispatch(AC(userId));
+            }
+        dispatch(toggleFollowingProgress(false, userId));
+}
+
+
 // thunx
 
 export const getUsers = (page, pageSize) => {
-    return (dispatch) => {
+    return async (dispatch) => {
     dispatch(setIsFetching(true));
     dispatch(setCurrentPage(page));
-    usersAPI.getUsers(page, pageSize).then(data => {
-             dispatch(setUsers(data.items));
-             dispatch(setTotalUsersCount(data.totalCount));
+    let response = await usersAPI.getUsers(page, pageSize)
+             dispatch(setUsers(response.items));
+             dispatch(setTotalUsersCount(response.totalCount));
              dispatch(setIsFetching(false));
-         });
     }
 }
 
 export const follow = (userId) => {
-    return (dispatch) => {
-        dispatch(toggleFollowingProgress(true, userId));
-        usersAPI.follow(userId)
-            .then(data => {
-                if (data.resultCode === 0) {
-                    dispatch(followSuccess(userId));
-                }
-                dispatch(toggleFollowingProgress(false, userId));
-            })
-            .catch(() => dispatch(toggleFollowingProgress(false, userId)));
+    return async (dispatch) => {
+        followUnfolowFlow(dispatch, userId, usersAPI.follow.bind(usersAPI), followSuccess);
     }
 }
 
 export const unfollow = (userId) => {
-    return (dispatch) => {
-        dispatch(toggleFollowingProgress(true, userId));
-        usersAPI.unfollow(userId)
-            .then(data => {
-                if (data.resultCode === 0) {
-                    dispatch(unfollowSuccess(userId));
-                }
-            dispatch(toggleFollowingProgress(false, userId));
-            })
-            .catch(() => dispatch(toggleFollowingProgress(false, userId))); 
+    return async (dispatch) => {
+        followUnfolowFlow(dispatch, userId, usersAPI.unfollow.bind(usersAPI), unfollowSuccess);
     }
 }
  

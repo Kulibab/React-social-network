@@ -8,7 +8,8 @@ import { getPageSize, getTotalUsersCount, getCurrentPage, getIsFetching, getIsFo
 class UsersContainer extends React.Component {
 
     componentDidMount() {
-        this.props.getUsers(this.props.currentPage, this.props.pageSize);
+        let {currentPage, pageSize} = this.props;
+        this.props.getUsers(currentPage, pageSize);
     }
 
     onPageChanged = (p) => {
@@ -30,17 +31,6 @@ class UsersContainer extends React.Component {
         </>
     }
 }
-
-// let mapStateToProps = (state) => {
-//     return {
-//         usersData: state.usersPage.usersData,
-//         pageSize: state.usersPage.pageSize,
-//         totalUsersCount: state.usersPage.totalUsersCount,
-//         currentPage: state.usersPage.currentPage,
-//         isFetching: state.usersPage.isFetching,
-//         isFollowingInProgress: state.usersPage.isFollowingInProgress
-//     }
-// }
 
 let mapStateToProps = (state) => {
     return {
