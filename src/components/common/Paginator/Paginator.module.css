@@ -2,6 +2,7 @@
 .pages {
     display: flex;
     flex-wrap: wrap;
+    padding: 10px;
 }
 
 .pages span {
@@ -13,4 +14,10 @@
 .selectPage {
     font-weight: 900;
     color: yellow;
+}
+
+.pages .paginatorBtn {
+    border: 1px solid chartreuse;
+    padding: 0 5px;
+    margin: 0 10px;
 }
