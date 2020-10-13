@@ -5,6 +5,7 @@ const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_STATUS = 'SET_STATUS';
 const UPDATE_STATUS = 'UPDATE_STATUS';
 const DELETE_POST = 'DELETE_POST';
+const SAVE_PHOTO_SUCCESS = 'SAVE_PHOTO_SUCCESS';
 
 let initialState = {
     postData: [
@@ -50,6 +51,11 @@ const profileReducer = (state = initialState, action) => {
                 ...state,
                 postData: state.postData.filter(el => el.id !== action.id)
             }
+        case SAVE_PHOTO_SUCCESS:
+            return {
+                ...state,
+                profile: {...state.profile, photos: action.photos}
+            }
         default: 
             return state;
     }
@@ -74,6 +80,11 @@ export const setStatus = (status) => ({
     type: SET_STATUS,
     status
 });
+
+export const savePhotoSuccess = (photos) => ({
+    type: SAVE_PHOTO_SUCCESS,
+
+})
 // thunx
 
 export const setUserProfile = (userId) => {
@@ -95,6 +106,15 @@ export const updateUserStatus = (status) => {
         let response = await profileAPI.updateStatus(status)
         if (response.resultCode === 0) {
             dispatch(setStatus(status));
+        }
+    }
+}
+
+export const savePhoto = (photo) => {
+    return async (dispatch) => {
+        let response = await profileAPI.savePhoto(photo)
+        if (response.resultCode === 0) {
+            dispatch(savePhotoSuccess(response.data.photos));
         }
     }
 }

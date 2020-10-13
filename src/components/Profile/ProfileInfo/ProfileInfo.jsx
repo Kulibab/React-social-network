@@ -10,13 +10,23 @@ const ProfileInfo = (props) => {
         return <Preloader />
     }
 
+    const onMainPhotoSelected = e => {
+        if (e.target.files.length) {
+            props.savePhoto(e.target.files[0])
+        }
+    }
+
     return (
         <div>
             <div>
                 <img className={classes.top_img} src='https://www.scadconnector.com/wp-content/uploads/2015/10/editRick-and-Morty-2.jpg' alt='profile-pic' />
             </div>
             <div className={classes.profile}>
-                <img className={classes.avatar} src={props.profile.photos.large || photo} alt='avatar' />
+                <div className={classes.avatarContainer}>
+                    <img className={classes.avatar} src={props.profile.photos.large || photo} alt='avatar' />
+                    {!props.isOwner && <label htmlFor="upload-avatar" className={classes.uploadLabel}>choose photo</label>}
+                    <input type="file" id="upload-avatar" className={classes.fileInput} onChange={e => onMainPhotoSelected(e)} />
+                </div>
                 <div className={classes.info}>
                     <p className={classes.name}>
                         {props.profile.fullName}
