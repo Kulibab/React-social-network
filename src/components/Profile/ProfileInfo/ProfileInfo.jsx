@@ -1,19 +1,30 @@
 import React from 'react';
+import classNames from 'classnames';
+
 import classes from './ProfileInfo.module.css';
 import Preloader from '../../common/Preloader/Preloader';
 import ProfileStatus from './ProfileStatus';
 import photo from '../../../assets/images/photo.png';
+import { useState } from 'react';
+import ProfileDataForm from './ProfileDataForm';
 
 
-const ProfileInfo = (props) => {
-    if(!props.profile) {
+const ProfileInfo = ({ profile, savePhoto, isOwner, status, updateUserStatus, saveProfile }) => {
+    const [ editMode, setEditMode ] = useState(false);
+
+    if (!profile) {
         return <Preloader />
     }
 
     const onMainPhotoSelected = e => {
         if (e.target.files.length) {
-            props.savePhoto(e.target.files[0])
+            savePhoto(e.target.files[0])
         }
+    }
+
+    const onSubmit = (formData) => {
+       saveProfile(formData)
+       .then(() =>  setEditMode(false))
     }
 
     return (
@@ -23,33 +34,41 @@ const ProfileInfo = (props) => {
             </div>
             <div className={classes.profile}>
                 <div className={classes.avatarContainer}>
-                    <img className={classes.avatar} src={props.profile.photos.large || photo} alt='avatar' />
-                    {!props.isOwner && <label htmlFor="upload-avatar" className={classes.uploadLabel}>choose photo</label>}
+                    <img className={classes.avatar} src={profile.photos.large || photo} alt='avatar' />
+                    {isOwner && <label htmlFor="upload-avatar" className={classes.uploadLabel}>choose photo</label>}
                     <input type="file" id="upload-avatar" className={classes.fileInput} onChange={e => onMainPhotoSelected(e)} />
                 </div>
-                <div className={classes.info}>
-                    <p className={classes.name}>
-                        {props.profile.fullName}
-                    </p>
-                    <ProfileStatus status={props.status} updateUserStatus={props.updateUserStatus}/>
-                    <p className={classes.about}>
-                        {props.profile.aboutMe}
-                    </p>
-                    <p className={classes.lookJob}>
-                        Looking for a job: {props.profile.lookingForAJob ? 'Yes' : 'No'}
-                    </p>
-                    <p className={classes.jobDescription}>
-                        {props.profile.lookingForAJobDescription}
-                    </p>
-                </div>
+                {editMode && <ProfileDataForm initialValues={profile} setEditMode={setEditMode} onSubmit={onSubmit}/>}
+                {!editMode && <ProfileData profile={profile} status={status} updateUserStatus={updateUserStatus} isOwner={isOwner} setEditMode={setEditMode}/>}
                 <div className={classes.links}>
+                    {Object.entries(profile.contacts).filter(([name, ref]) => ref).map(([name, ref], ind) => {
+                        return <a className={classNames(classes.contact, classes[name])} href={ref} key={ind}>
+                        </a>
+                    })}
                 </div>
             </div>
         </div>
-
     )
 }
 
-// https://hips.hearstapps.com/digitalspyuk.cdnds.net/17/38/1505816350-screen-shot-2017-09-19-at-111641.jpg?crop=0.502xw:1.00xh;0.0952xw,0&resize=480:*
-
 export default ProfileInfo;
+
+const ProfileData = ({ profile, status, updateUserStatus, isOwner, setEditMode }) => {
+
+    return <div className={classes.info}>
+        <p className={classes.name}>
+            {profile.fullName}
+        </p>
+        <ProfileStatus status={status} updateUserStatus={updateUserStatus} isOwner={isOwner}/>
+        <p className={classes.about}>
+            {profile.aboutMe}
+        </p>
+        <p className={classes.lookJob}>
+            Looking for a job: {profile.lookingForAJob ? 'Yes' : 'No'}
+        </p>
+        <p className={classes.jobDescription}>
+            {profile.lookingForAJobDescription}
+        </p>
+        {isOwner && <button onClick={() => setEditMode(true)}>Edit</button>}
+    </div>
+}

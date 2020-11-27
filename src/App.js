@@ -7,7 +7,7 @@ import DialogsContainer from './components/Dialogs/DialogsContainer';
 import News from './components/News/News';
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
-import {Route, withRouter} from 'react-router-dom';
+import {Redirect, Route, Switch, withRouter} from 'react-router-dom';
 import UsersContainer from './components/Users/UsersContainer';
 import Login from './components/Login/Login'
 import { connect } from 'react-redux';
@@ -19,8 +19,17 @@ import { Provider } from 'react-redux';
 import store from './redux/redux-store';
 
 class App extends React.Component {
+    catchAllUnhandledErrors = (promiseRejectionEvent) => {
+        alert('some error occured');
+    }
+
     componentDidMount() {
         this.props.initializeApp();
+        window.addEventListener("unhandledrejection", this.catchAllUnhandledErrors);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener("unhandledrejection", this.catchAllUnhandledErrors);
     }
 
     render() {
@@ -33,6 +42,8 @@ class App extends React.Component {
               <HeaderContainer />
               <NavBar />
               <div className='app-wrapper-content'>
+                  <Switch>
+                  <Redirect exact from="/" to="/profile" />
                   <Route path='/profile/:userId?' render={() => <ProfileContainer />} />
                   <Route path='/dialogs' render={() => <DialogsContainer />} />
                   <Route path='/users' render={() => <UsersContainer />} />
@@ -40,6 +51,8 @@ class App extends React.Component {
                   <Route path='/music' component={Music}/>
                   <Route path='/settings' component={Settings}/>
                   <Route path='/login' component={Login}/>
+                  <Route path='*' render={() => <div>404 page not found</div>}/>
+                  </Switch>
               </div>
             </div>
         );

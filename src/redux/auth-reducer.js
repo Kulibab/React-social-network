@@ -73,7 +73,7 @@ export const setUserLogin = (data) => async (dispatch) => {
         } else {
             if (response.resultCode === 10) {
                 authAPI.getCaptcha()
-                    .then(response => dispatch(setCaptcha(response.url)))
+                    .then(r => dispatch(setCaptcha(r.url)))
             }
             let message = (response.messages[0]) ? response.messages[0] : 'Some error';
             dispatch(stopSubmit('login', {

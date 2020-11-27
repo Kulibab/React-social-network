@@ -1,25 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import classes from './ProfileInfo.module.css';
 
-function ProfileStatus (props) {
+function ProfileStatus ({status, isOwner, updateUserStatus}) {
 
-    let [status, changeStatus] = useState(props.status);
+    let [newStatus, changeStatus] = useState(status);
     let [editMode, changeEditMode] = useState(false);
 
     useEffect(() => {
-        changeStatus(props.status);
-    }, [props.status]);
+        changeStatus(status);
+    }, [status]);
 
         return (
             <div>
                 {!editMode
                 ?   <div>
-                        <span onDoubleClick={() => changeEditMode(true)} className={classes.status}>{status || '-----'}</span>
+                        <span onDoubleClick={() => isOwner && changeEditMode(true)} className={classes.status}>{newStatus || '-----'}</span>
                     </div>
                 :   <div>
-                        <input value={status}
+                        <input value={newStatus}
                             onBlur={() => {
-                                props.updateUserStatus(status)
+                                updateUserStatus(newStatus)
                                 changeEditMode(false)
                             }}
                             onChange={(e) => {

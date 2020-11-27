@@ -43,6 +43,8 @@
 
 .profile p, .status {
     margin: 8px;
+    white-space: pre-wrap;
+    word-break: break-all;
 }
 
 .profile input {
@@ -78,4 +80,40 @@
 
 .links {
     width: 200px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.contact {
+    width: 80px;
+    height: 80px;
+    margin: 10px;
+}
+
+.facebook {
+    background: center / contain no-repeat url('../../../assets/images/iconfinder_Colored_Facebook3_svg_5365678.svg');
+}
+
+.website {
+    background: center / contain no-repeat url('../../../assets/images/iconfinder_simpline_47_2305615.svg');
+}
+
+.vk {
+    background: center / contain no-repeat url('../../../assets/images/iconfinder_vkontakte_386743.svg');
+}
+
+.twitter {
+    background: center / contain no-repeat url('../../../assets/images/iconfinder_twitter_317720.svg');
+}
+
+.instagram {
+    background: center / contain no-repeat url('../../../assets/images/iconfinder_Instagram_1298747.svg');
+}
+
+.github {
+    background: center / contain no-repeat url('../../../assets/images/iconfinder_71-github_4202098.svg');
+}
+
+.youtube {
+    background: center / contain no-repeat url('../../../assets/images/iconfinder_1_Youtube_colored_svg_5296521.svg');
 }

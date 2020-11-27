@@ -1,9 +1,9 @@
+import { stopSubmit } from 'redux-form';
 import {profileAPI} from '../api/api';
 
 const ADD_POST = 'ADD-POST';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_STATUS = 'SET_STATUS';
-const UPDATE_STATUS = 'UPDATE_STATUS';
 const DELETE_POST = 'DELETE_POST';
 const SAVE_PHOTO_SUCCESS = 'SAVE_PHOTO_SUCCESS';
 
@@ -17,7 +17,7 @@ let initialState = {
     status: ''
 }
 
-const profileReducer = (state = initialState, action) => {
+const profileReducer = (state = initialState, action, error) => {
     switch (action.type) {
         case ADD_POST:
             let newPost = {
@@ -37,11 +37,6 @@ const profileReducer = (state = initialState, action) => {
                 profile: action.profile
             }
         case SET_STATUS:
-            return {
-                ...state,
-                status: action.status
-            }
-        case UPDATE_STATUS:
             return {
                 ...state,
                 status: action.status
@@ -83,8 +78,8 @@ export const setStatus = (status) => ({
 
 export const savePhotoSuccess = (photos) => ({
     type: SAVE_PHOTO_SUCCESS,
-
 })
+
 // thunx
 
 export const setUserProfile = (userId) => {
@@ -115,6 +110,22 @@ export const savePhoto = (photo) => {
         let response = await profileAPI.savePhoto(photo)
         if (response.resultCode === 0) {
             dispatch(savePhotoSuccess(response.data.photos));
+        }
+    }
+}
+
+export const saveProfile = (formData) => {
+    return async (dispatch, getState) => {
+        const id = getState().auth.userId;
+        let response = await profileAPI.saveProfile(formData);
+        if (response.resultCode === 0) {
+            dispatch(setUserProfile(id));
+        } else {
+            let message = (response.messages[0]) ? response.messages[0] : 'Some error';
+            dispatch(stopSubmit('edit-profile', {
+                _error: message
+            }));
+            return Promise.reject(response.messages[0]);
         }
     }
 }

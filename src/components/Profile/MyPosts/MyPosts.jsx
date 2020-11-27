@@ -25,7 +25,7 @@ const MyPosts = (props) => {
     )
 }
 
-const maxLength10 = maxLengthCreator(10);
+const maxLength400 = maxLengthCreator(400);
 
 const MyPostsForm = (props) => {
     return (
@@ -34,7 +34,7 @@ const MyPostsForm = (props) => {
             component={Textarea}
             cols="30" rows="10"
             name={'addPostForm'}
-            validate={[required, maxLength10]}
+            validate={[required, maxLength400]}
             onKeyPress={(ev) => {
                 if (!ev.shiftKey && ev.charCode === 13) {
                     props.handleSubmit()
