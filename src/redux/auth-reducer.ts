@@ -4,6 +4,14 @@ import { stopSubmit } from 'redux-form';
 const SET_USER_DATA = 'auth/SET_USER_DATA';
 const SET_CAPTCHA = 'auth/SET_CAPTCHA';
 
+type ISType = {
+  userId: number | null
+  email: string | null
+  login: string | null
+  isAuth: boolean
+  captcha: boolean | string
+}
+
 let initialState = {
     userId: null,
     email: null,
@@ -12,7 +20,7 @@ let initialState = {
     captcha: false
 };
 
-const authReducer = (state = initialState, action) => {
+const authReducer = (state = initialState, action: any): ISType => {
     switch (action.type) {
         case SET_USER_DATA:
             return {
@@ -23,14 +31,26 @@ const authReducer = (state = initialState, action) => {
         case SET_CAPTCHA:
             return {
                 ...state,
-                captcha: action.captcha
+                captcha: action.captcha,
             }
         default:
             return state;
     }
 };
 
-export const authUserDataSuccess = (userId, email, login, isAuth) => {
+type authUserDataSuccessDataType = {
+  userId: number | null
+  email: string | null
+  login: string | null
+  isAuth: boolean
+}
+
+type authUserDataSuccessType = {
+  type: typeof SET_USER_DATA
+  data: authUserDataSuccessDataType
+}
+
+export const authUserDataSuccess = (userId: null | number, email: null | string, login: null | string, isAuth: boolean): authUserDataSuccessType => {
     return {
         type: SET_USER_DATA,
         data: {
@@ -42,7 +62,12 @@ export const authUserDataSuccess = (userId, email, login, isAuth) => {
     }
 };
 
-const setCaptcha = (url) => {
+type setCaptchaType = {
+  type: typeof SET_CAPTCHA
+  captcha: string
+}
+
+const setCaptcha = (url: string): setCaptchaType => {
     return {
         type: SET_CAPTCHA,
         captcha: url
@@ -51,7 +76,7 @@ const setCaptcha = (url) => {
 
 // thunx
 
-export const getAuthUserData = () => async (dispatch) => {
+export const getAuthUserData = () => async (dispatch: Function) => {
         let response = await authAPI.getAuth();
 
         if (response.resultCode === 0) {
@@ -60,7 +85,7 @@ export const getAuthUserData = () => async (dispatch) => {
         }
     }
 
-export const setUserLogin = (data) => async (dispatch) => {
+export const setUserLogin = (data: {login: string, password: string, captcha: string}) => async (dispatch: Function) => {
 
         let response = await authAPI.setLogin({
             email: data.login,
@@ -82,7 +107,7 @@ export const setUserLogin = (data) => async (dispatch) => {
         }
 }
 
-export const setUserLogout = () => async (dispatch) => {
+export const setUserLogout = () => async (dispatch: Function) => {
 
         let response = await authAPI.setLogout()
 
